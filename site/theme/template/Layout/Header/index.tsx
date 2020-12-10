@@ -255,7 +255,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
             <header id="header" className={headerClassName}>
               <Row style={{ flexFlow: 'nowrap', height: 64 }}>
                 <Col {...colProps[0]}>
-                  <Logo {...sharedProps} location={location} />
+                  <Logo />
                 </Col>
                 <Col {...colProps[1]} className="menu-row">
                   {searchBox}
