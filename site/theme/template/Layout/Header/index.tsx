@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
+// import { FormattedMessage, injectIntl } from 'react-intl';
 import classNames from 'classnames';
 import { Row, Col, Button } from 'antd';
 
@@ -138,7 +138,9 @@ class Header extends React.Component<HeaderProps, HeaderState> {
               className="header-button header-lang-button"
               key="lang-button"
             >
-              <FormattedMessage id="app.header.lang" />
+              <div id="app.header.lang">中文</div>
+              {/* 中文
+              <FormattedMessage /> */}
             </Button>,
           ];
 
@@ -186,5 +188,5 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     );
   }
 }
-
-export default injectIntl(Header as any);
+export default Header;
+// export default injectIntl(Header as any);
