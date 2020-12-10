@@ -196,7 +196,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
             isRTL,
           };
 
-          const searchBox = <SearchBox key="search" {...sharedProps} responsive={responsive} />;
+          const searchBox = <SearchBox key="search" {...sharedProps} />;
 
           const navigationNode = (
             <Navigation
