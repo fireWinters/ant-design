@@ -3,7 +3,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import classNames from 'classnames';
 import { Row, Col, Button } from 'antd';
 
-import * as utils from '../../utils';
+// import * as utils from '../../utils';
 import Logo from './Logo';
 import SearchBox from './SearchBox';
 import Navigation from './Navigation';
@@ -15,37 +15,7 @@ import './index.less';
 const RESPONSIVE_XS = 1120;
 const RESPONSIVE_SM = 1200;
 
-let docsearch: any;
-if (typeof window !== 'undefined') {
-  // eslint-disable-next-line global-require
-  docsearch = require('docsearch.js');
-}
-
-function initDocSearch(locale: string) {
-  if (!docsearch) {
-    return;
-  }
-  const lang = locale === 'zh-CN' ? 'cn' : 'en';
-  docsearch({
-    apiKey: '60ac2c1a7d26ab713757e4a081e133d0',
-    indexName: 'ant_design',
-    inputSelector: '#search-box input',
-    algoliaOptions: { facetFilters: [`tags:${lang}`] },
-    transformData(hits: { url: string }[]) {
-      hits.forEach(hit => {
-        hit.url = hit.url.replace('ant.design', window.location.host);
-        hit.url = hit.url.replace('https:', window.location.protocol);
-      });
-      return hits;
-    },
-    debug: false, // Set debug to true if you want to inspect the dropdown
-  });
-}
-
 export interface HeaderProps {
-  intl: {
-    locale: string;
-  };
   location: { pathname: string; query: any };
   router: any;
   themeConfig: { docVersions: Record<string, string> };
@@ -70,9 +40,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
   };
 
   componentDidMount() {
-    const { intl } = this.props;
-    initDocSearch(intl.locale);
-
     window.addEventListener('resize', this.onWindowResize);
     this.onWindowResize();
 
@@ -100,16 +67,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     this.setState({ searching });
   };
 
-  onDirectionChange = () => {
-    const { changeDirection } = this.props;
-    const { direction } = this.context;
-    if (direction !== 'rtl') {
-      changeDirection('rtl');
-    } else {
-      changeDirection('ltr');
-    }
-  };
-
   getNextDirectionText = () => {
     const { direction } = this.context;
 
@@ -119,62 +76,25 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     return 'LTR';
   };
 
-  getDropdownStyle = (): React.CSSProperties => {
-    const { direction } = this.context;
-    if (direction === 'rtl') {
-      return {
-        direction: 'ltr',
-        textAlign: 'right',
-      };
-    }
-    return {};
-  };
-
-  handleVersionChange = (url: string) => {
-    const currentUrl = window.location.href;
-    const currentPathname = window.location.pathname;
-    if (/overview/.test(currentPathname) && /0?[1-39][0-3]?x/.test(url)) {
-      window.location.href = currentUrl
-        .replace(window.location.origin, url)
-        .replace(/\/components\/overview/, `/docs${/0(9|10)x/.test(url) ? '' : '/react'}/introduce`)
-        .replace(/\/$/, '');
-      return;
-    }
-    window.location.href = currentUrl.replace(window.location.origin, url);
-  };
-
-  onLangChange = () => {
-    const {
-      location: { pathname, query },
-    } = this.props;
-    const currentProtocol = `${window.location.protocol}//`;
-    const currentHref = window.location.href.substr(currentProtocol.length);
-
-    if (utils.isLocalStorageNameSupported()) {
-      localStorage.setItem('locale', utils.isZhCN(pathname) ? 'en-US' : 'zh-CN');
-    }
-
-    window.location.href =
-      currentProtocol +
-      currentHref.replace(
-        window.location.pathname,
-        utils.getLocalizedPathname(pathname, !utils.isZhCN(pathname), query).pathname,
-      );
-  };
-
   render() {
     return (
       <SiteContext.Consumer>
         {() => {
           const { windowWidth, searching, showTechUIButton } = this.state;
           const { direction } = this.context;
-          const {
-            location,
-            intl: { locale },
-          } = this.props;
 
-          const pathname = location.pathname.replace(/(^\/|\/$)/g, '');
-
+          const locale = 'zh-CN';
+          const location = {
+            action: 'POP',
+            basename: '/',
+            hash: '',
+            key: null,
+            pathname: 'components/overview-cn/',
+            query: {},
+            search: '',
+            state: undefined,
+          };
+          const pathname = 'components/overview-cn/';
           const isHome = ['', 'index', 'index-cn'].includes(pathname);
 
           const isZhCN = locale === 'zh-CN';
@@ -207,8 +127,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
               showTechUIButton={showTechUIButton}
               pathname={pathname}
               directionText={this.getNextDirectionText()}
-              onLangChange={this.onLangChange}
-              onDirectionChange={this.onDirectionChange}
             />
           );
 
@@ -216,7 +134,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
             navigationNode,
             <Button
               size="small"
-              onClick={this.onLangChange}
+              // onClick={this.onLangChange}
               className="header-button header-lang-button"
               key="lang-button"
             >

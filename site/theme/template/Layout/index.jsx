@@ -195,25 +195,27 @@ export default class Layout extends React.Component {
     setTwoToneColor(iconTwoToneThemeMap[theme] || iconTwoToneThemeMap.default);
   };
 
-  changeDirection = direction => {
-    this.setState({
-      direction,
-    });
-    const { pathname, hash, query } = this.props.location;
-    if (direction === 'ltr') {
-      delete query.direction;
-    } else {
-      query.direction = 'rtl';
-    }
-    browserHistory.push({
-      pathname: `/${pathname}`,
-      query,
-      hash,
-    });
-  };
+  // changeDirection = direction => {
+  //   this.setState({
+  //     direction,
+  //   });
+  //   const { pathname, hash, query } = this.props.location;
+  //   if (direction === 'ltr') {
+  //     delete query.direction;
+  //   } else {
+  //     query.direction = 'rtl';
+  //   }
+  //   browserHistory.push({
+  //     pathname: `/${pathname}`,
+  //     query,
+  //     hash,
+  //   });
+  // };
 
   render() {
     const { children, helmetContext = {}, ...restProps } = this.props;
+    const qwe = { ...restProps };
+    console.log(this.props, 'qwe', qwe);
     const { appLocale, direction, isMobile, theme, setTheme, setIframeTheme } = this.state;
     const title =
       appLocale.locale === 'zh-CN'
@@ -257,7 +259,7 @@ export default class Layout extends React.Component {
               locale={appLocale.locale === 'zh-CN' ? zhCN : null}
               direction={direction}
             >
-              <Header {...restProps} changeDirection={this.changeDirection} />
+              <Header />
               {children}
             </ConfigProvider>
           </IntlProvider>

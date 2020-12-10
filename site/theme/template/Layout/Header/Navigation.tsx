@@ -15,8 +15,8 @@ export interface NavigationProps extends SharedProps {
   location: { pathname: string; query: any };
   directionText: string;
   showTechUIButton: boolean;
-  onLangChange: () => void;
-  onDirectionChange: () => void;
+  // onLangChange: () => void;
+  // onDirectionChange: () => void;
 }
 
 export default ({ pathname, location }: NavigationProps) => {
