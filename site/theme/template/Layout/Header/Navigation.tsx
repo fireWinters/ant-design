@@ -1,15 +1,14 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'bisheng/router';
+// import { Link } from 'bisheng/router';
 import { Menu } from 'antd';
-import * as utils from '../../utils';
+// import * as utils from '../../utils';
 import { SharedProps } from './interface';
 
 import './Navigation.less';
 
 export interface NavigationProps extends SharedProps {
-  isMobile: boolean;
   isRTL: boolean;
   pathname: string;
   responsive: null | 'narrow' | 'crowded';
@@ -20,8 +19,8 @@ export interface NavigationProps extends SharedProps {
   onDirectionChange: () => void;
 }
 
-export default ({ isZhCN, isMobile, pathname, location }: NavigationProps) => {
-  const menuMode = isMobile ? 'inline' : 'horizontal';
+export default ({ pathname, location }: NavigationProps) => {
+  const menuMode = 'horizontal';
 
   const module = pathname.split('/').slice(0, -1).join('/');
   let activeMenuItem = module || 'home';
@@ -38,15 +37,15 @@ export default ({ isZhCN, isMobile, pathname, location }: NavigationProps) => {
       selectedKeys={[activeMenuItem]}
       id="nav"
     >
-      <Menu.Item key="docs/spec">
-        <Link to={utils.getLocalizedPathname('/docs/spec/introduce', isZhCN, location.query)}>
-          <FormattedMessage id="app.header.menu.spec" />
-        </Link>
+      <Menu.Item key="">
+        {/* <Link to={utils.getLocalizedPathname('/docs/spec/introduce', isZhCN, location.query)}> */}
+        <FormattedMessage id="app.header.menu.spec" />
+        {/* </Link> */}
       </Menu.Item>
       <Menu.Item key="components">
-        <Link to={utils.getLocalizedPathname('/components/overview/', isZhCN, location.query)}>
-          <FormattedMessage id="app.header.menu.components" />
-        </Link>
+        {/* <Link to={utils.getLocalizedPathname('/components/overview/', isZhCN, location.query)}> */}
+        <FormattedMessage id="app.header.menu.components" />
+        {/* </Link> */}
       </Menu.Item>
     </Menu>
   );

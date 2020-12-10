@@ -165,7 +165,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
   render() {
     return (
       <SiteContext.Consumer>
-        {({ isMobile }) => {
+        {() => {
           const { windowWidth, searching, showTechUIButton } = this.state;
           const { direction } = this.context;
           const {
@@ -204,7 +204,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
               {...sharedProps}
               location={location}
               responsive={responsive}
-              isMobile={isMobile}
               showTechUIButton={showTechUIButton}
               pathname={pathname}
               directionText={this.getNextDirectionText()}
@@ -259,7 +258,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                 </Col>
                 <Col {...colProps[1]} className="menu-row">
                   {searchBox}
-                  {!isMobile && menu}
+                  {menu}
                 </Col>
               </Row>
             </header>
