@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { FormattedMessage } from 'react-intl';
+// import { FormattedMessage } from 'react-intl';
 // import { Link } from 'bisheng/router';
 import { Menu } from 'antd';
 // import * as utils from '../../utils';
@@ -39,12 +39,14 @@ export default ({ pathname, location }: NavigationProps) => {
     >
       <Menu.Item key="">
         {/* <Link to={utils.getLocalizedPathname('/docs/spec/introduce', isZhCN, location.query)}> */}
-        <FormattedMessage id="app.header.menu.spec" />
+        {/* <FormattedMessage id="app.header.menu.spec" /> */}
+        <div id="app.header.menu.spec">设计</div>
         {/* </Link> */}
       </Menu.Item>
       <Menu.Item key="components">
         {/* <Link to={utils.getLocalizedPathname('/components/overview/', isZhCN, location.query)}> */}
-        <FormattedMessage id="app.header.menu.components" />
+        {/* <FormattedMessage id="app.header.menu.components" /> */}
+        <div id="app.header.menu.components">组件</div>
         {/* </Link> */}
       </Menu.Item>
     </Menu>
