@@ -1,8 +1,7 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import classNames from 'classnames';
-import { UnorderedListOutlined } from '@ant-design/icons';
-import { Row, Col, Popover, Button } from 'antd';
+import { Row, Col, Button } from 'antd';
 
 import * as utils from '../../utils';
 import Logo from './Logo';
@@ -54,7 +53,6 @@ export interface HeaderProps {
 }
 
 interface HeaderState {
-  menuVisible: boolean;
   windowWidth: number;
   searching: boolean;
   showTechUIButton: boolean;
@@ -66,15 +64,13 @@ class Header extends React.Component<HeaderProps, HeaderState> {
   pingTimer: NodeJS.Timeout;
 
   state = {
-    menuVisible: false,
     windowWidth: 1400,
     searching: false,
     showTechUIButton: false,
   };
 
   componentDidMount() {
-    const { intl, router } = this.props;
-    router.listen(this.handleHideMenu);
+    const { intl } = this.props;
     initDocSearch(intl.locale);
 
     window.addEventListener('resize', this.onWindowResize);
@@ -102,18 +98,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 
   onTriggerSearching = (searching: boolean) => {
     this.setState({ searching });
-  };
-
-  handleShowMenu = () => {
-    this.setState({
-      menuVisible: true,
-    });
-  };
-
-  handleHideMenu = () => {
-    this.setState({
-      menuVisible: false,
-    });
   };
 
   onDirectionChange = () => {
@@ -144,12 +128,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
       };
     }
     return {};
-  };
-
-  onMenuVisibleChange = (visible: boolean) => {
-    this.setState({
-      menuVisible: visible,
-    });
   };
 
   handleVersionChange = (url: string) => {
@@ -188,7 +166,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     return (
       <SiteContext.Consumer>
         {({ isMobile }) => {
-          const { menuVisible, windowWidth, searching, showTechUIButton } = this.state;
+          const { windowWidth, searching, showTechUIButton } = this.state;
           const { direction } = this.context;
           const {
             location,
@@ -218,14 +196,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
             isRTL,
           };
 
-          const searchBox = (
-            <SearchBox
-              key="search"
-              {...sharedProps}
-              responsive={responsive}
-              onTriggerFocus={this.onTriggerSearching}
-            />
-          );
+          const searchBox = <SearchBox key="search" {...sharedProps} responsive={responsive} />;
 
           const navigationNode = (
             <Navigation
@@ -282,19 +253,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 
           return (
             <header id="header" className={headerClassName}>
-              {isMobile && (
-                <Popover
-                  overlayClassName="popover-menu"
-                  placement="bottomRight"
-                  content={menu}
-                  trigger="click"
-                  visible={menuVisible}
-                  arrowPointAtCenter
-                  onVisibleChange={this.onMenuVisibleChange}
-                >
-                  <UnorderedListOutlined className="nav-phone-icon" onClick={this.handleShowMenu} />
-                </Popover>
-              )}
               <Row style={{ flexFlow: 'nowrap', height: 64 }}>
                 <Col {...colProps[0]}>
                   <Logo {...sharedProps} location={location} />
