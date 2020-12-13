@@ -15,12 +15,7 @@ import './index.less';
 const RESPONSIVE_XS = 1120;
 const RESPONSIVE_SM = 1200;
 
-export interface HeaderProps {
-  location: { pathname: string; query: any };
-  router: any;
-  themeConfig: { docVersions: Record<string, string> };
-  changeDirection: (direction: string) => void;
-}
+interface HeaderProps {}
 
 interface HeaderState {
   windowWidth: number;

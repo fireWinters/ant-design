@@ -126,6 +126,7 @@ class MainContent extends Component {
       intl: { locale },
     } = this.props;
     const moduleData = getModuleData(this.props);
+    console.log(moduleData, 'moduleData');
     const menuItems = utils.getMenuItems(
       moduleData,
       locale,
@@ -425,6 +426,7 @@ class MainContent extends Component {
         {menuItems}
       </Menu>
     );
+    console.log(menuItems, 'menuItems');
     const componentPage = /^\/?components/.test(location.pathname);
     return (
       <div className="main-wrapper">
